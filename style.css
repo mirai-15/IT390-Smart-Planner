@@ -1,0 +1,88 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+header {
+    background: #006932;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    font-size: 30px;
+}
+nav {
+    background: #49A078;
+    padding: 10px;
+    text-align: center;
+}
+nav a {
+    color: white;
+    margin: 0 15px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+}
+.about{
+    text-align: left;
+}
+.prototype {
+  display: block;   
+  margin: 0 auto;       
+  max-width: 800px;     
+  width: 80%;           
+  height: auto;         
+}
+section ul li {
+    font-size: 18px;
+    margin: 10px 0; /* 항목 사이 여백 */
+}
+section {
+    padding: 40px;
+    text-align: center;
+    background-color: #FFFFFF;
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 18px;
+    line-height: 1.8;
+}
+.table-container {
+    display: flex;           
+    justify-content: center; 
+    gap: 40px;               
+}
+
+table {
+    border-collapse: collapse;
+    width: 250px;           
+    text-align: center;
+    font-size: 16px;
+}
+
+table, th, td {
+    border: 1px solid #ccc;  
+    padding: 10px;
+}
+.map-container iframe {
+    width: 100%;
+    max-width: 800px; /* 최대 너비 */
+    height: 450px;
+    border: 0;
+}
+footer {
+    background: #006932;
+    color: white;
+    text-align: center;
+    padding: 15px;
+}
+
+.pricingButton {
+    display: block;
+    margin: 15px auto;
+    width: fit-content;
+    font-size: 24px;
+    background-color: #49A078;
+    color: #FFFFFF;
+    border: none;
+    padding: .5em;
+    cursor: pointer;
+}
