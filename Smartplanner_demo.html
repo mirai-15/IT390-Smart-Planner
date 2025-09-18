@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Try Smart Planner</title>
+  <link rel="stylesheet" href="style.css">
+  <script src = "SmartPlanner_script.js"></script>
+</head>
+<body>
+
+  <!-- Loading Page --> 
+  <div id="loading_page">
+    <p id="loading_text">Loading Smart Planner...</p>
+    <div class="progress_bar">
+      <div class="progress_fill" id="bar"></div>
+    </div>
+  </div>
+
+  <!-- Smart Planner App page -->
+  <div id="app">
+    <div class="container">
+      <div class="sidemenu">
+        <h1>Smart Planner</h1>
+        <button class="page_Button">Calendar</button>
+        <button class="page_Button">Dashboard</button>
+        <button class="page_Button">Add Tasks</button>
+      </div>
+
+      <div class="main_content">
+        <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=America%2FNew_York&showPrint=0&showTitle=0" 
+          style="border:solid 1px #777" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+
+        <div class="tasks">
+          <h2>Tasks</h2>
+          <label><input type="checkbox"> Assignment 6</label>
+          <label><input type="checkbox"> Exercise</label>
+          <label><input type="checkbox"> Midterm Exam</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Disclaimer Statement: This is a fictitious company made by Smart Planner Team and is developed as an education project.</p>
+    <p>© 2025 Smart Planner. All rights reserved.</p>
+    <a href="Smartplanner_Privacypolicy_Minsung_Kim.html" target="_blank">Privacy Policy</a>
+
+
+  </footer>
+
+</body>
+</html>
