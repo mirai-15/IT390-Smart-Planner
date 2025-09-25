@@ -5,22 +5,61 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About Smart Planner</title>
   <link rel="stylesheet" href="style.css">
-  <script src="myScript.js"></script>
+  <script src="SmartPlanner_script.js"></script>
 </head>
 <body>
   <header>
     <h1>Smart Planner</h1>
     <p>Plan Smarter, Stress Less</p>
+    <button class = "page_Button" id="loginBtn">Login with Google</button>
   </header>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-analytics.js";
+    import { getAuth, GoogleAuthProvider, signInWithPopup } 
+      from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBNwZRftT8Cn8DufLbmddKHvK0lMhRRxlU",
+      authDomain: "smartplanner-f2540.firebaseapp.com",
+      projectId: "smartplanner-f2540",
+      storageBucket: "smartplanner-f2540.firebasestorage.app",
+      messagingSenderId: "469173527661",
+      appId: "1:469173527661:web:b27cff5519aedd4a338b64",
+      measurementId: "G-7Y8EZVY7M0"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+
+    document.getElementById("loginBtn").addEventListener("click", () => {
+      signInWithPopup(auth, provider)
+        .then((result) => {
+          const user = result.user;
+          console.log("Login success:", user.displayName, user.email);
+          alert(`Welcome, ${user.displayName}!`);
+        })
+        .catch((error) => {
+          console.error("Login Error:", error);
+        });
+    });
+  </script>
+
 
   <nav>
     <a href="Smartplanner_About_Minsung_Kim.html">About</a>
     <a href="Smartplanner_Pricing_Minsung_Kim.html">Pricing</a>
     <a href="Smartplanner_Contact_Minsung_Kim.html">Contact</a>
+    
   </nav>
 
   <h2 style="text-align: center; font-size: 24px;">About Smart Planner</h2>
-  <button class="pricingButton" onclick="displayPricing()">Show Pricing</button>
+  <button class="page_Button" onclick="displayPricing()">Show Pricing</button>
+  <button class="page_Button" onclick="window.open('Smartplanner_demo.html', '_blank')">Try Smart Planner Demo</button>
   <img src="app_prototype.png" alt="Smart Planner Prototype" class = "prototype">
   <section class="about">
     <p>Smart Planner is designed for students to efficiently manage classes, assignments, personal tasks, and so on.</p>
@@ -36,7 +75,7 @@
 
 
   <footer>
-    <p>Disclaimer Statement: This is a fictitious company made by Minsung Kim and is developed as an education project.</p>
+    <p>Disclaimer Statement: This is a fictitious company made by Smart Planner Team and is developed as an education project.</p>
     <p>© 2025 Smart Planner. All rights reserved.</p>
     <a href="Smartplanner_Privacypolicy_Minsung_Kim.html" target="_blank">Privacy Policy</a>
 
