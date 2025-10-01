@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Try Smart Planner</title>
+  <link rel="stylesheet" href="style.css">
+  <script src = "SmartPlanner_script.js"></script>
+  <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.19/index.global.min.js'></script>
+  <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.19/index.global.min.js'></script>
+  <script>
+
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'dayGridMonth'
+        });
+        calendar.render();
+      });
+
+  </script>
+</head>
+<body>
+
+  <!-- Loading Page --> 
+  <div id="loading_page">
+    <p id="loading_text">Loading Smart Planner...</p>
+    <div class="progress_bar">
+      <div class="progress_fill" id="bar"></div>
+    </div>
+  </div>
+
+  <!-- Smart Planner App page -->
+  <div id="app">
+    <div class="container">
+      <div class="sidemenu">
+        <h1>Smart Planner</h1>
+        <button class="page_Button">Calendar</button>
+        <button class="page_Button">Dashboard</button>
+        <button class="page_Button">Add Tasks</button>
+        <div class="tasks">
+          <h2>Upcoming Tasks</h2>
+          <label><input type="checkbox"> Assignment 6</label>
+          <br>
+          <label><input type="checkbox"> Exercise</label>
+          <br>
+          <label><input type="checkbox"> Midterm Exam</label>
+        </div>
+      </div>
+      <div class="full_calendar" id='calendar'></div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Disclaimer Statement: This is a fictitious company made by Smart Planner Team and is developed as an education project.</p>
+    <p>© 2025 Smart Planner. All rights reserved.</p>
+    <a href="Smartplanner_Privacypolicy_Minsung_Kim.html" target="_blank">Privacy Policy</a>
+
+
+  </footer>
+
+</body>
+</html>
