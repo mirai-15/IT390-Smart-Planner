@@ -14,21 +14,32 @@ function startLoading (){
             clearInterval(loading);
             loading_page.style.display = "none";
             app.style.display = "block"; 
-
-            let calendarEl = document.getElementById('calendar');
-            let calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'dayGridMonth',
-            headerToolbar: {
-                left: 'prev,next today',
-                center: 'title',
-                right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-            },
-            selectable: true,
-            editable: true
-            });
-            calendar.render();
+            startCalendar();
         }
     }, 150);
+}
+
+function startCalendar (){
+    //Full calendar api background.
+    let calendarEl = document.getElementById('calendar');
+    let calendar = new FullCalendar.Calendar(calendarEl, {
+    initialView: 'dayGridMonth',
+
+    // Set calendar header.
+    headerToolbar: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+    },
+
+    // Users can select calendar slot.
+    selectable: true,
+
+    // Users can use drag&drop and resizing features.
+    editable: true
+    });
+    calendar.render();
+
 }
 
 if (document.title == "Try Smart Planner"){
