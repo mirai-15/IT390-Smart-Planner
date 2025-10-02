@@ -42,8 +42,12 @@ function startCalendar (){
     // Add a task
     dateClick: function(info) {
         selectedDate = info.dateStr;
-        document.getElementById("addStart").value = selectedDate + "T09:00";
-        document.getElementById("addEnd").value   = selectedDate + "T10:00";
+        document.getElementById("addStartDate").value = selectedDate;
+        document.getElementById("addStartTime").value   = "";
+
+        document.getElementById("addEndDate").value = "";
+        document.getElementById("addEndTime").value   = "";
+
         document.getElementById("addTitle").value = "";
 
         let modal = document.getElementById("addModal");
@@ -55,24 +59,38 @@ function startCalendar (){
         modal.style.position = "absolute";
         modal.style.left = x+"px";
         modal.style.top = (y-50) + "px";
-    }});
+    },
+    eventClick: function(info) {
+        if (confirm("Do you want to delete the task" + " '" + info.event.title + "'?")) {
+            info.event.remove();
+        }
+    }
+});
     calendar.render();
 }
 
 // Execute when an user try to add a task. 
 function saveEvent() {
     let title = document.getElementById("addTitle").value;
-    let start = document.getElementById("addStart").value;
-    let end   = document.getElementById("addEnd").value;
+    let startDate = document.getElementById("addStartDate").value;
+    let startTime = document.getElementById("addStartTime").value;
+    let endDate = document.getElementById("addEndDate").value;
+    let endTime = document.getElementById("addEndTime").value;
     
-    if (title && start && end) {
-        calendar.addEvent({
-            title: title,
-            start: start,
-            end: end,
-            allDay: false
-        });
+    if (!title || !startDate || !startTime || !endDate || !endTime) {
+        alert("Please complete all fields.");
+        return;
     }
+    
+    let start = startDate + "T" + startTime;
+    let end   = endDate + "T" + endTime;
+    
+    calendar.addEvent({
+        title: title,
+        start: start,
+        end: end,
+        allDay: false
+    });
     closeAddModal();
 }
 
