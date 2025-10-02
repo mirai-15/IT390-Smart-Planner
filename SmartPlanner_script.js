@@ -15,6 +15,11 @@ function startLoading (){
             loading_page.style.display = "none";
             app.style.display = "block"; 
 
+            let calendarEl = document.getElementById('calendar');
+            let calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth'
+            });
+            calendar.render();
         }
     }, 150);
 }
