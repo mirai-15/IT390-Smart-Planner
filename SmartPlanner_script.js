@@ -19,10 +19,11 @@ function startLoading (){
     }, 150);
 }
 
+let calendar;
 function startCalendar (){
     //Full calendar api background.
     let calendarEl = document.getElementById('calendar');
-    let calendar = new FullCalendar.Calendar(calendarEl, {
+    calendar = new FullCalendar.Calendar(calendarEl, {
     initialView: 'dayGridMonth',
 
     // Set calendar header.
@@ -35,11 +36,48 @@ function startCalendar (){
     // Users can select calendar slot.
     selectable: true,
 
-    // Users can use drag&drop and resizing features.
-    editable: true
-    });
-    calendar.render();
+    // Users can use drag/drop and resizing features.
+    editable: true,
 
+    // Add a task
+    dateClick: function(info) {
+        selectedDate = info.dateStr;
+        document.getElementById("addStart").value = selectedDate + "T09:00";
+        document.getElementById("addEnd").value   = selectedDate + "T10:00";
+        document.getElementById("addTitle").value = "";
+
+        let modal = document.getElementById("addModal");
+
+        let x = info.jsEvent.pageX;
+        let y = info.jsEvent.pageY;
+
+        modal.style.display = "block";
+        modal.style.position = "absolute";
+        modal.style.left = x+"px";
+        modal.style.top = (y-50) + "px";
+    }});
+    calendar.render();
+}
+
+// Execute when an user try to add a task. 
+function saveEvent() {
+    let title = document.getElementById("addTitle").value;
+    let start = document.getElementById("addStart").value;
+    let end   = document.getElementById("addEnd").value;
+    
+    if (title && start && end) {
+        calendar.addEvent({
+            title: title,
+            start: start,
+            end: end,
+            allDay: false
+        });
+    }
+    closeAddModal();
+}
+
+function closeAddModal() {
+    document.getElementById("addModal").style.display = "none";
 }
 
 if (document.title == "Try Smart Planner"){

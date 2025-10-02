@@ -44,6 +44,16 @@
     </div>
   </div>
 
+  <!--Add task modal-->
+  <div id="addModal" class="modal">
+    <h3>Add a New Task</h3>
+    <label>Title: <input type="text" id="addTitle"></label><br>
+    <label>Start: <input type="datetime-local" id="addStart"></label><br>
+    <label>End: <input type="datetime-local" id="addEnd"></label><br>
+    <button onclick="saveEvent()">Save</button>
+    <button onclick="closeAddModal()">Close</button>
+  </div>
+
   <footer>
     <p>Disclaimer Statement: This is a fictitious company made by Smart Planner Team and is developed as an education project.</p>
     <p>© 2025 Smart Planner. All rights reserved.</p>
