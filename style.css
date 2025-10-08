@@ -158,4 +158,21 @@ footer {
 
 .tasks {
     font-size: 24px;
+    text-align: center;
 }
+
+.full_calendar {
+    width: 80%;
+    margin: 20px auto;
+}
+
+.modal {
+  display: none;             
+  position: absolute;                    
+  background: white;          
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  z-index: 10000;             
+}
+
