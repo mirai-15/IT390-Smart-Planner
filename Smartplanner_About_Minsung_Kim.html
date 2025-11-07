@@ -73,8 +73,11 @@
   const auth = getAuth(app);
   const provider = new GoogleAuthProvider();
 
+  // Bring login button and save it as variable "loginBtn".
+  const loginBtn = document.getElementById("loginBtn");
+
   // This code sets how it works when the login button is clicked.
-  document.getElementById("loginBtn").addEventListener("click", () => {
+  loginBtn.addEventListener("click", () => {
     signInWithPopup(auth, provider)
       .then((result) => {
         const user = result.user;
@@ -87,9 +90,32 @@
       });
   });
 
-  // Check if a user is logged in or not.
+  // Check if a user is logged in or not and change the log in button text.
   onAuthStateChanged(auth, (user) => {
-  updateDemoButton(user);
+    if (user) {
+      loginBtn.textContent = `Welcome, ${user.displayName}! (Log out)`;
+      loginBtn.onclick = () => {
+        auth.signOut().then(() => {
+          alert("You've logged out!");
+        });
+      };
+      updateDemoButton(user);
+
+    } else {
+      loginBtn.textContent = "Log in with Google";
+      loginBtn.onclick = () => {
+        signInWithPopup(auth, provider)
+          .then((result) => {
+            const user = result.user;
+            loginBtn.textContent = `Welcome, ${user.displayName}! (Log out)`;
+            updateDemoButton(user);
+          })
+          .catch((error) => {
+            console.error("Login Error:", error);
+          });
+      };
+      updateDemoButton(null);
+    }
   });
 
   // Modify the letter of the button depending on whether the user is logged in or not.
