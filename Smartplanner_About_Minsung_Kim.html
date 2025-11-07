@@ -76,20 +76,6 @@
   // Bring login button and save it as variable "loginBtn".
   const loginBtn = document.getElementById("loginBtn");
 
-  // This code sets how it works when the login button is clicked.
-  loginBtn.addEventListener("click", () => {
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        const user = result.user;
-        console.log("Login success:", user.displayName, user.email);
-        alert(`Welcome, ${user.displayName}!`);
-        updateDemoButton(user);
-      })
-      .catch((error) => {
-        console.error("Login Error:", error);
-      });
-  });
-
   // Check if a user is logged in or not and change the log in button text.
   onAuthStateChanged(auth, (user) => {
     if (user) {
@@ -97,7 +83,6 @@
       loginBtn.onclick = () => {
         auth.signOut().then(() => {
           alert("You've logged out!");
-          loginBtn.onclick = null;
         });
       };
       updateDemoButton(user);
