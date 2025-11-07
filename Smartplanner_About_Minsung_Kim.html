@@ -97,6 +97,7 @@
       loginBtn.onclick = () => {
         auth.signOut().then(() => {
           alert("You've logged out!");
+          loginBtn.onclick = null;
         });
       };
       updateDemoButton(user);
