@@ -14,42 +14,6 @@
     <button class = "page_Button" id="loginBtn">Login with Google</button>
   </header>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-analytics.js";
-    import { getAuth, GoogleAuthProvider, signInWithPopup } 
-      from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyBNwZRftT8Cn8DufLbmddKHvK0lMhRRxlU",
-      authDomain: "smartplanner-f2540.firebaseapp.com",
-      projectId: "smartplanner-f2540",
-      storageBucket: "smartplanner-f2540.firebasestorage.app",
-      messagingSenderId: "469173527661",
-      appId: "1:469173527661:web:b27cff5519aedd4a338b64",
-      measurementId: "G-7Y8EZVY7M0"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
-
-    const auth = getAuth(app);
-    const provider = new GoogleAuthProvider();
-
-    document.getElementById("loginBtn").addEventListener("click", () => {
-      signInWithPopup(auth, provider)
-        .then((result) => {
-          const user = result.user;
-          console.log("Login success:", user.displayName, user.email);
-          alert(`Welcome, ${user.displayName}!`);
-        })
-        .catch((error) => {
-          console.error("Login Error:", error);
-        });
-    });
-  </script>
-
-
   <nav>
     <a href="Smartplanner_About_Minsung_Kim.html">About</a>
     <a href="Smartplanner_Pricing_Minsung_Kim.html">Pricing</a>
@@ -59,7 +23,7 @@
 
   <h2 style="text-align: center; font-size: 24px;">About Smart Planner</h2>
   <button class="page_Button" onclick="displayPricing()">Show Pricing</button>
-  <button class="page_Button" onclick="window.open('Smartplanner_demo_full_calendar.html', '_blank')">Try Smart Planner Demo</button>
+  <button class="page_Button" id="demoBtn">Try Smart Planner Demo</button>
   <img src="app_prototype.png" alt="Smart Planner Prototype" class = "prototype">
   <section class="about">
     <p>Smart Planner is designed for students to efficiently manage classes, assignments, personal tasks, and so on.</p>
@@ -81,5 +45,82 @@
 
 
   </footer>
+
+
+  <script type="module">
+  // This code imports required Google API.
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-analytics.js";
+  import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged} 
+    from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+  import { getFirestore } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
+
+  // This code connects database and this app.
+  const firebaseConfig = {
+    apiKey: "AIzaSyBNwZRftT8Cn8DufLbmddKHvK0lMhRRxlU",
+    authDomain: "smartplanner-f2540.firebaseapp.com",
+    projectId: "smartplanner-f2540",
+    storageBucket: "smartplanner-f2540.firebasestorage.app",
+    messagingSenderId: "469173527661",
+    appId: "1:469173527661:web:b27cff5519aedd4a338b64",
+    measurementId: "G-7Y8EZVY7M0"
+  };
+
+  // This code initializes Firebase features
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  const db = getFirestore(app);
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
+
+  // Bring login button and save it as variable "loginBtn".
+  const loginBtn = document.getElementById("loginBtn");
+
+  // Check if a user is logged in or not and change the log in button text.
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      loginBtn.textContent = `Welcome, ${user.displayName}! (Log out)`;
+      loginBtn.onclick = () => {
+        auth.signOut().then(() => {
+          alert("You've logged out!");
+        });
+      };
+      updateDemoButton(user);
+
+    } else {
+      loginBtn.textContent = "Log in with Google";
+      loginBtn.onclick = () => {
+        signInWithPopup(auth, provider)
+          .then((result) => {
+            const user = result.user;
+            loginBtn.textContent = `Welcome, ${user.displayName}! (Log out)`;
+            updateDemoButton(user);
+          })
+          .catch((error) => {
+            console.error("Login Error:", error);
+          });
+      };
+      updateDemoButton(null);
+    }
+  });
+
+  // Modify the letter of the button depending on whether the user is logged in or not.
+  function updateDemoButton(user) {
+        const demoBtn = document.getElementById("demoBtn");
+
+        if (user) {
+          demoBtn.textContent = "Access My Smart Planner";
+          demoBtn.onclick = () => {
+            window.location.href = "Smartplanner_demo_full_calendar.html";
+          };
+        } else {
+          demoBtn.textContent = "Try Smart Planner Demo";
+          demoBtn.onclick = () => {
+            window.open("Smartplanner_demo_full_calendar.html", "_blank");
+          };
+        }
+      }
+
+</script>
 </body>
 </html>
