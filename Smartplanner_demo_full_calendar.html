@@ -63,12 +63,6 @@
     from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
 
 
-  import { db, setEventsRef, loadEventsFromFirestore } from "./SmartPlanner_script.js";
-  import { getMessaging } from "firebase/messaging";
-  // Initialize Firebase Cloud Messaging and get a reference to the service
-  const messaging = getMessaging(app);
-
-
   const auth = getAuth();
 
   onAuthStateChanged(auth, (user) => {
