@@ -57,6 +57,7 @@
   </footer>
   <script type = "module" src = "SmartPlanner_script.js"></script>
   <script type="module">
+  import { db, setEventsRef, loadEventsFromFirestore } from "./SmartPlanner_script.js";
   import { getAuth, onAuthStateChanged } 
     from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
   import { collection } 
