@@ -1,0 +1,177 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+header {
+    background: #5192E4;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    font-size: 30px;
+}
+nav {
+    background: #96C3E1;
+    padding: 10px;
+    text-align: center;
+}
+nav a {
+    color: #FCF7EF;
+    margin: 0 15px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+}
+.about{
+    text-align: left;
+}
+.prototype {
+  display: block;   
+  margin: 0 auto;       
+  max-width: 800px;     
+  width: 80%;           
+  height: auto;         
+}
+section ul li {
+    font-size: 18px;
+    margin: 10px 0;
+}
+section {
+    padding: 40px;
+    text-align: center;
+    background-color: #D3DEE5;
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 18px;
+    line-height: 1.8;
+}
+.table-container {
+    display: flex;           
+    justify-content: center; 
+    gap: 40px;               
+}
+
+table {
+    border-collapse: collapse;
+    width: 250px;           
+    text-align: center;
+    font-size: 16px;
+}
+
+table, th, td {
+    border: 1px solid #A6C3E8;  
+    padding: 10px;
+}
+.map-container iframe {
+    width: 100%;
+    max-width: 800px; /* 최대 너비 */
+    height: 450px;
+    border: 0;
+}
+footer {
+    background: #5192E4;
+    color: white;
+    text-align: center;
+    padding: 15px;
+}
+
+.page_Button {
+    display: block;
+    margin: 15px auto;
+    width: fit-content;
+    font-size: 24px;
+    background-color: #96C3E1;
+    border-radius: 10px;
+    color: #FFFFFF;
+    border: none;
+    padding: .5em;
+    cursor: pointer;
+}
+
+/* Loading Page Style */
+#loading_page {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: #FCF7EF;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+#loading_text {
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+}
+
+#app {
+    display: none;
+}
+
+.progress_bar {
+    width: 300px;
+    height: 20px;
+    border: 2px solid #333;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress_fill {
+    width: 0%;
+    height: 100%;
+    background: #96C3E1;
+    transition: width 0.3s;
+}
+
+/* Smart Planner Demo Style */
+.container {
+    display: flex;
+    height: 100vh;  
+}
+
+.sidemenu {
+    width: 25%;
+    background: #5192E4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    border-right: 2px solid #333;
+}
+
+.sidemenu h1{
+    color: #FCF7EF;
+}
+
+.main_content {
+    flex: 1;
+    padding: 20px;
+    background: whitesmoke;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tasks {
+    font-size: 24px;
+    text-align: center;
+}
+
+.full_calendar {
+    width: 80%;
+    margin: 20px auto;
+}
+
+.modal {
+  display: none;             
+  position: absolute;                    
+  background: #FCF7EF;          
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  z-index: 10000;             
+}
