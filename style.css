@@ -15,13 +15,30 @@ nav {
     padding: 10px;
     text-align: center;
 }
-a {
+nav a {
     color: #FCF7EF;
     margin: 0 15px;
     text-decoration: none;
     font-weight: bold;
     font-size: 18px;
 }
+
+.demo_b {
+    color: #FCF7EF;
+    /* margin: 0 15px; */
+    text-decoration: none;
+    font-weight: bold;
+    /* font-size: 18px; */
+}
+
+.logo {
+    display: block;   
+  margin: 0 auto;       
+  max-width: 300px;     
+  width: 50%;           
+  height: auto;  
+}
+
 .about{
     text-align: left;
 }
