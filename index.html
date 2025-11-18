@@ -50,8 +50,10 @@
   // This code imports required Google API.
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
   import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-analytics.js";
-  import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged} 
+  import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } 
     from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+  import { getMessaging, getToken } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-messaging.js";
+  import { getFirestore, setDoc, doc} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
 
 
   // This code connects database and this app.
@@ -70,6 +72,26 @@
   const analytics = getAnalytics(app);
   const auth = getAuth(app);
   const provider = new GoogleAuthProvider();
+  const db = getFirestore(app);
+  const messaging = getMessaging(app);
+
+  // Save token to Firestore
+  async function saveUserToken(uid){
+    try{
+      const permission = await Notification.requestPermission();
+      if (permission !== "granted") return;
+
+      const token = await getToken(messaging, {
+        vapidKey: //add Vapid Key from Firestore here
+      });
+
+      if (token){
+        await setDoc(doc(db,"users",uid),{fcmToken: token},{merge:true});
+        console.log("FCMS Token Saved: ", token);
+      }catch(err){
+        console.error("error saving token: ", err);
+    }
+  }
 
   // Bring login button and save it as variable "loginBtn".
   const loginBtn = document.getElementById("loginBtn");
