@@ -121,11 +121,16 @@ async function saveEvent() {
     
     let start = startDate + "T" + startTime;
     let end   = endDate + "T" + endTime;
+
+    //include uid for notifications
+    let user = JSON.parse(localStorage.getItem("smartplanner_user"));
+    let uid = user?.uid ?? null;
     
     let docRef = null;
-    
+
+    //added uid
     if (eventsRef) {
-    docRef = await addDoc(eventsRef, { title, start, end });
+    docRef = await addDoc(eventsRef, { title, start, end, uid });
 }
     
     calendar.addEvent({
@@ -151,3 +156,4 @@ export function setEventsRef(ref) {
   eventsRef = ref;
 }
 export { loadEventsFromFirestore, db };
+
