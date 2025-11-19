@@ -88,7 +88,9 @@
       if (token){
         await setDoc(doc(db,"users",uid),{fcmToken: token},{merge:true});
         console.log("FCMS Token Saved: ", token);
-      }catch(err){
+      }}
+      
+      catch(err){
         console.error("error saving token: ", err);
     }
   }
