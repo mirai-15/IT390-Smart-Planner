@@ -39,6 +39,7 @@ let selectedDate;
 // Load event if a user logged in
 async function loadEventsFromFirestore() {
   if (!eventsRef) return;
+  if (!calendar) return;
   const querySnapshot = await getDocs(eventsRef);
   querySnapshot.forEach((docSnap) => {
     const data = docSnap.data();
