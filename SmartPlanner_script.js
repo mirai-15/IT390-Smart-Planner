@@ -11,6 +11,9 @@ function startLoading (){
             clearInterval(loading);
             loading_page.style.display = "none";
             app.style.display = "block"; 
+
+            requestNotificationPermission();
+            
             startCalendar();
         }
     }, 150);
@@ -19,6 +22,7 @@ function startLoading (){
 import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
 import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } 
   from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
+import {get Messaging, getToken } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-messaging.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBNwZRftT8Cn8DufLbmddKHvK0lMhRRxlU",
@@ -31,6 +35,23 @@ const firebaseConfig = {
 
 const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const messaging = getMessaging(app);
+
+async function requestNotificationPermission() {
+  console.log("Requesting notification permission...");
+  const permission = await Notification.requestPermission();
+
+  if (permission === "granted") {
+    console.log("Notification permission granted.");
+
+    const token = await getToken(messaging, {
+      vapidKey: "BKn4LYcV8sj8rhvK..."   // use your actual public VAPID key
+    });
+
+    console.log("FCM Token:", token);
+    localStorage.setItem("smartplanner_fcm_token", token);
+  } 
+}
 
 let eventsRef = null;
 let calendar;
@@ -126,12 +147,13 @@ async function saveEvent() {
     //include uid for notifications
     let user = JSON.parse(localStorage.getItem("smartplanner_user"));
     let uid = user?.uid ?? null;
+    let fcmToken = localStorage.getItem("smartplanner_fcm_token") ?? null;
     
     let docRef = null;
 
     //added uid
     if (eventsRef) {
-    docRef = await addDoc(eventsRef, { title, start, end, uid });
+    docRef = await addDoc(eventsRef, { title, start, end, uid, fcmToken });
 }
     
     calendar.addEvent({
@@ -157,4 +179,5 @@ export function setEventsRef(ref) {
   eventsRef = ref;
 }
 export { loadEventsFromFirestore, db };
+
 
