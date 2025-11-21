@@ -75,6 +75,17 @@
   const db = getFirestore(app);
   const messaging = getMessaging(app);
 
+    // Register service worker for Firebase Messaging
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/firebase-messaging-sw.js')
+        .then((registration) => {
+          console.log('Service Worker registered with scope:', registration.scope);
+        })
+        .catch((err) => {
+          console.error('Service Worker registration failed:', err);
+        });
+    }
+    
   // Save token to Firestore
   async function saveUserToken(uid){
     try{
@@ -103,6 +114,10 @@
     if (user) {
       loginBtn.textContent = `Welcome, ${user.displayName}! (Log out)`;
       localStorage.setItem("userUID", user.uid);
+
+      //save token
+      saveUserToken(user.uid);
+      
       loginBtn.onclick = () => {
         auth.signOut().then(() => {
           localStorage.removeItem("userUID");
@@ -120,6 +135,10 @@
             const user = result.user;
             loginBtn.textContent = `Welcome, ${user.displayName}! (Log out)`;
             localStorage.setItem("userUID", user.uid);
+
+            //save token
+            saveUserToken(user.uid);
+            
             updateDemoButton(user);
           })
           .catch((error) => {
