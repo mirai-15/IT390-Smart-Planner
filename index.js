@@ -36,5 +36,28 @@ exports.sendEventReminders = functions.pubsub.schedule("every 1 hours").onRun(as
       });
       }
     }
+  }
   return null;
 });
+
+exports.sendTaskReminderEmail = functions.firestore
+  .document('users/{userId}/events/{eventId}')
+  .onCreate(async (snap, context) => {
+    const event = snap.data();
+    const userId = context.params.userId;
+
+    // Get user email
+    const userDoc = await admin.firestore().collection('users').doc(userId).get();
+    const userEmail = userDoc.data()?.email;
+    if (!userEmail) return;
+
+    // Create a document in the mail collection
+    await admin.firestore().collection('mail').add({
+      to: userEmail,
+      message: {
+        subject: `Reminder: ${event.title}`,
+        text: `You have a task "${event.title}" scheduled at ${event.start}.`,
+        html: `<p>You have a task "<strong>${event.title}</strong>" scheduled at ${event.start}.</p>`
+      }
+    });
+  });
