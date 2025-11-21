@@ -7,34 +7,34 @@ exports.sendEventReminders = functions.pubsub.schedule("every 1 hours").onRun(as
   const now = new Date();
   const oneDayLater = new Date(now.getTime() + 24 * 60 * 60 * 1000);
 
-  const eventsSnapshot = await admin.firestore().collection("events").get();
+  const usersSnapshot = await admin.firestore().collection("users").get();
 
-  for (const doc of eventsSnapshot.docs) {
-    const event = doc.data();
-    const start = new Date(event.start);
+  for (const doc of usersSnapshot.docs) {
+    const user = userDoc.data();
+    const uid = userDoc.id;
 
-    if (
-      start.getFullYear() === oneDayLater.getFullYear() &&
-      start.getMonth() === oneDayLater.getMonth() &&
-      start.getDate() === oneDayLater.getDate()
-    ) {
-      const usersSnapshot = await admin.firestore().collection("users").get();
+    if(!user.fcmToken) continue;
 
-      usersSnapshot.forEach((userDoc) => {
-        const user = userDoc.data();
+    const eventsRef = admin.firestore().collection("users").doc(uid).collection("events");
 
-        if (user.fcmToken) {
-          admin.messaging().send({
+    const eventsSnapshot = await eventsRef.get();
+
+    for (const eventDoc of eventsSnapshot.docs){
+      const event = eventDoc.data();
+      const start = new Date(event.start);
+
+      const isTomorrow = 
+        start.getFullYear() === oneDayLater.getFullYear() && start.getMonth() === oneDayLater.gentMonth() && start.getDate() === oneDayLater.getDate();
+
+      if (isTomorrow){
+        await admin.messaging().send({
             token: user.fcmToken,
             notification: {
               title: `Reminder: ${event.title}`,
               body: `Your event starts tomorrow at ${event.start}`
             }
-          });
-        }
       });
+      }
     }
-  }
-
   return null;
 });
