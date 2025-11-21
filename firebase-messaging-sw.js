@@ -12,5 +12,12 @@ firebase.initializeApp({
 const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage((payload) => {
-  self.registration.showNotification(payload.notification.title, payload.notification);
+  console.log("[firebase-messaging-sw.js] Received background message: ", payload);
+
+  const notificationTitle = payload.notification?.title || "SmartPlanner";
+  const notificationOptions = {
+    body: payload.notification?.body
+  };
+  
+  self.registration.showNotification(notificationTitle, notificationOptions);
 });
