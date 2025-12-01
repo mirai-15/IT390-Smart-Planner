@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Core background + text */
+    --background: 42 57% 96%;         /* #FCF7EF */
+    --foreground: 0 0% 20%;           /* Neutral dark */
+
+    /* Cards / surfaces */
+    --card: 42 57% 96%;
+    --card-foreground: 0 0% 20%;
+
+    /* Popovers */
+    --popover: 42 57% 96%;
+    --popover-foreground: 0 0% 20%;
+
+    /* Header/Footer primary blue (#5192E4) */
+    --primary: 213 67% 62%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Nav + button blue (#96C3E1) */
+    --secondary: 205 52% 75%;
+    --secondary-foreground: 42 57% 96%; /* Cream text */
+
+    /* Muted surfaces (for tables, borders, etc.) */
+    --muted: 210 25% 90%;
+    --muted-foreground: 215 20% 40%;
+
+    /* Accent matches secondary for cohesion */
+    --accent: 205 52% 75%;
+    --accent-foreground: 42 57% 96%;
+
+    /* Border colors (matches #A6C3E8) */
+    --border: 213 50% 80%;
+    --input: 213 50% 85%;
+
+    /* Focus ring */
+    --ring: 213 67% 62%;
+
+    --radius: 0.5rem;
+  }
+
+  /* ======================================================
+     DARK MODE (soft midnight version of your palette)
+     ====================================================== */
+  .dark {
+    --background: 220 20% 10%;
+    --foreground: 0 0% 96%;
+
+    --card: 220 20% 14%;
+    --card-foreground: 0 0% 96%;
+
+    --popover: 220 20% 14%;
+    --popover-foreground: 0 0% 96%;
+
+    /* Darkened primary blue */
+    --primary: 213 67% 45%;
+    --primary-foreground: 0 0% 98%;
+
+    /* Darkened secondary */
+    --secondary: 205 40% 55%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 220 15% 20%;
+    --muted-foreground: 0 0% 70%;
+
+    --accent: 205 40% 55%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 62% 40%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 220 15% 28%;
+    --input: 220 15% 28%;
+    --ring: 213 67% 62%;
+  }
+}
+
+/* ======================================================
+   BASE ELEMENT STYLES
+   ====================================================== */
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+
+  header {
+    background-color: hsl(var(--primary));
+    color: white;
+    text-align: center;
+  }
+
+  nav {
+    background-color: hsl(var(--secondary));
+    text-align: center;
+  }
+
+  nav a {
+    color: hsl(var(--secondary-foreground));
+    font-weight: 700;
+  }
+
+  footer {
+    background-color: hsl(var(--primary));
+    color: white;
+    text-align: center;
+  }
+}
