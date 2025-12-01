@@ -17,8 +17,7 @@ export async function POST(request: NextRequest) {
     token,
     notification: {
       title: title,
-      body: message,
-      imageUrl: "Smart_planner_logo.png" // May have to update this later
+      body: message
     },
     webpush: link && {
       fcmOptions: {
