@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Try Smart Planner</title>
+  <link rel="stylesheet" href="./style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.19/index.global.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.19/index.global.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid@6.1.19/index.global.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/list@6.1.19/index.global.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@6.1.19/index.global.min.js"></script>
+
+</head>
+<body>
+
+  <!-- Loading Page --> 
+  <div id="loading_page">
+    <p id="loading_text">Loading Smart Planner...</p>
+    <div class="progress_bar">
+      <div class="progress_fill" id="bar"></div>
+    </div>
+  </div>
+
+  <!-- Smart Planner App page -->
+  <div id="app">
+    <div class="container">
+      <div class="sidemenu">
+        <img src="Smart_planner_logo.png" alt="Smart Planner Logo" class="logo">
+        <button class="page_Button"><a class="demo_b" href="index.html">Dashboard</a></button>
+        <button class="page_Button"><a class="demo_b" href="Smartplanner_Pricing_Minsung_Kim.html">Pricing</a></button>
+        <button class="page_Button"><a class="demo_b" href="Smartplanner_Contact_Minsung_Kim.html">Contact</a></button>
+      </div>
+      <div class="full_calendar" id='calendar'></div>
+    </div>
+  </div>
+
+  <!--Add task modal-->
+  <div id="addModal" class="modal">
+    <h3>Add a New Task</h3>
+    <label>Title: <input type="text" id="addTitle"></label><br>
+    <label>Start Date: <input type="date" id="addStartDate"></label><br>
+    <label>Start Time: <input type="time" id="addStartTime"></label><br>
+    <label>End Date: <input type="date" id="addEndDate"></label><br>
+    <label>End Time: <input type="time" id="addEndTime"></label><br>
+    <button id="saveBtn">Save</button>
+    <button id="closeBtn">Close</button>
+
+  </div>
+
+  <footer>
+    <p>Disclaimer Statement: This is a fictitious company made by Smart Planner Team and is developed as an education project.</p>
+    <p>© 2025 Smart Planner. All rights reserved.</p>
+    <a href="Smartplanner_Privacypolicy_Minsung_Kim.html" target="_blank">Privacy Policy</a>
+
+
+  </footer>
+  <script type = "module" src = "SmartPlanner_script.js"></script>
+  <script type="module">
+  import { db, setEventsRef, loadEventsFromFirestore } from "./SmartPlanner_script.js";
+  import { getAuth, onAuthStateChanged } 
+    from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+  import { collection } 
+    from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
+
+
+  const auth = getAuth();
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+
+      setEventsRef(null);
+      return;
+    }
+
+    setEventsRef(collection(db, "users", user.uid, "events"));
+
+    loadEventsFromFirestore();
+  });
+</script>
+<script type="module">
+  import { saveEvent, closeAddModal } from "./SmartPlanner_script.js";
+
+  document.getElementById("saveBtn").onclick = saveEvent;
+  document.getElementById("closeBtn").onclick = closeAddModal;
+</script>
+
+
+</body>
+</html>
